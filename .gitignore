@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+model.pkl
+players_ml.csv
+players_app.csv
+leagues.csv
+.streamlit/
