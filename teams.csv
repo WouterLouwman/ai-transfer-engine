@@ -1,0 +1,14 @@
+team,league,default_system,press_intensity,build_up,wing_play,directness,defensive_line,duel_focus
+Liverpool,Premier League,4-3-3,0.85,0.75,0.7,0.55,0.7,0.55
+Manchester City,Premier League,4-3-3,0.7,0.9,0.65,0.4,0.75,0.45
+Arsenal,Premier League,4-3-3,0.75,0.8,0.65,0.45,0.7,0.45
+Chelsea,Premier League,4-2-3-1,0.7,0.7,0.6,0.5,0.65,0.5
+Real Madrid,La Liga,4-3-3,0.65,0.8,0.6,0.55,0.7,0.45
+FC Barcelona,La Liga,4-3-3,0.65,0.88,0.6,0.4,0.7,0.4
+Atletico Madrid,La Liga,3-5-2,0.75,0.6,0.45,0.7,0.55,0.7
+Bayern Munich,Bundesliga,4-2-3-1,0.7,0.78,0.6,0.5,0.7,0.5
+Borussia Dortmund,Bundesliga,4-3-3,0.8,0.7,0.7,0.55,0.65,0.55
+Inter,Serie A,3-5-2,0.7,0.65,0.55,0.6,0.6,0.65
+AC Milan,Serie A,4-2-3-1,0.75,0.65,0.65,0.55,0.65,0.55
+Juventus,Serie A,4-3-3,0.65,0.65,0.55,0.6,0.6,0.6
+Paris Saint-Germain,Ligue 1,4-3-3,0.6,0.75,0.65,0.45,0.65,0.4
