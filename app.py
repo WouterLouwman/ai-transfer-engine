@@ -18,17 +18,18 @@ players = pd.read_csv("players_app.csv")
 teams = pd.read_csv("teams.csv")
 leagues = pd.read_csv("leagues.csv")
 
-# ---- STREAMLIT CLOUD FIX (only change) ----
+# ---- STREAMLIT CLOUD FIX (ONLY CHANGE HERE) ----
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
 
 try:
     model = joblib.load(MODEL_PATH)
 except FileNotFoundError:
-    # If model.pkl is missing (common on Streamlit Cloud), train from your synthetic dataset
     train_df = pd.read_csv(os.path.join(BASE_DIR, "transfers_train.csv"))
-    y = train_df["success"]
-    X = train_df.drop(columns=["success"])
+
+    # ✅ Your CSV uses 'transfer_success' as the label column
+    y = train_df["transfer_success"]
+    X = train_df.drop(columns=["transfer_success"])
 
     model = RandomForestClassifier(
         n_estimators=300,
