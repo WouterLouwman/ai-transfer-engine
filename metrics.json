@@ -1,0 +1,31 @@
+{
+  "best_params": {
+    "max_depth": 8,
+    "max_features": "sqrt",
+    "min_samples_leaf": 4,
+    "n_estimators": 300
+  },
+  "test_auc": 0.7530477049116066,
+  "test_accuracy": 0.775,
+  "n_rows": 1800,
+  "n_features": 17,
+  "features": [
+    "age",
+    "overall",
+    "potential",
+    "xg_p90",
+    "xa_p90",
+    "tackles_p90",
+    "interceptions_p90",
+    "aerial_wins_p90",
+    "pace",
+    "pressing",
+    "creativity",
+    "ball_carrying",
+    "finishing",
+    "duel_strength",
+    "injury_prone",
+    "league_jump",
+    "tactical_fit"
+  ]
+}
