@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import joblib
 import altair as alt
+import os
+from sklearn.ensemble import RandomForestClassifier
 
 st.set_page_config(page_title="AI Transfer Decision Engine", layout="wide")
 
@@ -15,7 +17,28 @@ st.caption("Select a player + target club to predict success probability, injury
 players = pd.read_csv("players_app.csv")
 teams = pd.read_csv("teams.csv")
 leagues = pd.read_csv("leagues.csv")
-model = joblib.load("model.pkl")
+
+# ---- STREAMLIT CLOUD FIX (only change) ----
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
+
+try:
+    model = joblib.load(MODEL_PATH)
+except FileNotFoundError:
+    # If model.pkl is missing (common on Streamlit Cloud), train from your synthetic dataset
+    train_df = pd.read_csv(os.path.join(BASE_DIR, "transfers_train.csv"))
+    y = train_df["success"]
+    X = train_df.drop(columns=["success"])
+
+    model = RandomForestClassifier(
+        n_estimators=300,
+        random_state=42,
+        n_jobs=-1,
+        class_weight="balanced",
+    )
+    model.fit(X, y)
+    joblib.dump(model, MODEL_PATH)
+# ---- END FIX ----
 
 league_diff = dict(zip(leagues["league"], leagues["difficulty"]))
 league_intensity = dict(zip(leagues["league"], leagues["intensity"]))
