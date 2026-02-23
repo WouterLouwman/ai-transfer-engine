@@ -18,27 +18,38 @@ players = pd.read_csv("players_app.csv")
 teams = pd.read_csv("teams.csv")
 leagues = pd.read_csv("leagues.csv")
 
-# ---- STREAMLIT CLOUD FIX (ONLY CHANGE HERE) ----
+# ---- STREAMLIT CLOUD FIX (ONLY CHANGES HERE) ----
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
 
-try:
-    model = joblib.load(MODEL_PATH)
-except FileNotFoundError:
+def train_fallback_model():
     train_df = pd.read_csv(os.path.join(BASE_DIR, "transfers_train.csv"))
 
-    # ✅ Your CSV uses 'transfer_success' as the label column
+    # Target column in your file:
     y = train_df["transfer_success"]
-    X = train_df.drop(columns=["transfer_success"])
 
-    model = RandomForestClassifier(
+    # Drop label + non-numeric cols that break sklearn on Streamlit (strings)
+    drop_cols = ["transfer_success", "target_team", "target_league"]
+    X = train_df.drop(columns=[c for c in drop_cols if c in train_df.columns], errors="ignore")
+
+    # Extra safety: keep only numeric columns + fill missing values
+    X = X.select_dtypes(include=[np.number]).fillna(0)
+
+    model_local = RandomForestClassifier(
         n_estimators=300,
         random_state=42,
         n_jobs=-1,
         class_weight="balanced",
     )
-    model.fit(X, y)
-    joblib.dump(model, MODEL_PATH)
+    model_local.fit(X, y)
+    joblib.dump(model_local, MODEL_PATH)
+    return model_local
+
+try:
+    model = joblib.load(MODEL_PATH)
+except Exception:
+    # If file missing OR incompatible on Streamlit Cloud, retrain
+    model = train_fallback_model()
 # ---- END FIX ----
 
 league_diff = dict(zip(leagues["league"], leagues["difficulty"]))
