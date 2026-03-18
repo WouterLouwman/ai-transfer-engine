@@ -1,8 +1,4 @@
-streamlit
-pandas
-numpy
-altair
-plotly
-scikit-learn
-joblib
-openai>=1.0.0
+__pycache__/
+*.pyc
+.env
+model.pkl
