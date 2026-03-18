@@ -1,7 +1,8 @@
-__pycache__/
-*.pyc
-model.pkl
-players_ml.csv
-players_app.csv
-leagues.csv
-.streamlit/
+streamlit
+pandas
+numpy
+altair
+plotly
+scikit-learn
+joblib
+openai>=1.0.0
